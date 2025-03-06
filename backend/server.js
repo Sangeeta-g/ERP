@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pg from 'pg'; // Importing Client from pg
-
+import bcrypt from 'bcrypt';
 // Initialize dotenv to load environment variables from a .env file
 dotenv.config();
 
@@ -21,9 +21,10 @@ const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "ERP",
-    password: "Syedshahul@786",
+    password: "ERP@2025",
     port: 5432,
 });
+
 
 // Connect to the database
 db.connect(err => {
@@ -60,6 +61,8 @@ db.connect(err => {
         });
     }
 });
+
+
 
 // Define a simple route
 app.get('/', (req, res) => {
