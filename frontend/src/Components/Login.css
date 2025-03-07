@@ -1,0 +1,166 @@
+/* General styles */
+.auth-container {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+}
+
+/* Login Form Container */
+#auth-left {
+    width: 35%; /* Login form occupies 40% of the screen */
+    padding: 60px;
+    background: #ffffff;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Right side background (remaining 60%) */
+.auth-right {
+    width: 65%; /* Remaining screen width */
+    background: #3b5998;
+}
+
+/* Logo */
+.auth-logo {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.auth-logo img {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+    object-fit: contain;
+}
+
+/* Title and Subtitle */
+.auth-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #1a237e;
+}
+
+.auth-subtitle {
+    font-size: 16px;
+    color: #777;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px; /* Space between form groups */
+    position: relative; /* Position relative for icon positioning */
+}
+
+.form-control {
+    padding: 12px 15px; /* Padding for input fields */
+    padding-left: 50px; /* Increased left padding for icon space */
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+    width: 80%;
+}
+
+.form-control:focus {
+    border-color: #3b5998;
+    box-shadow: 0px 0px 8px rgba(59, 89, 152, 0.3);
+    outline: none;
+}
+
+/* Icons inside input fields */
+.form-control-icon {
+    position: absolute;
+    left: 15px; /* Position the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777; /* Icon color */
+    font-size: 20px; /* Icon size */
+    pointer-events: none; /* Prevent mouse events on the icon */
+}
+
+/* Checkbox */
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+/* Button Styling */
+.btn-primary {
+    background: #3b5998; /* Set button background color */
+    border: none;
+    color: white;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: 0.3s;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    background: #2e4272; /* Darker shade on hover */
+}
+
+/* Links */
+.text-gray-600 {
+    color: #666;
+}
+
+.font-bold {
+    font-weight: 600;
+    color: #3b5998;
+    text-decoration: none;
+}
+
+.font-bold:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #auth-left {
+        width: 100%; /* Full width on smaller screens */
+        padding: 30px; /* Reduced padding */
+    }
+
+    .auth-right {
+        display: none; /* Hide the right side on smaller screens */
+    }
+
+    .auth-title {
+        font-size: 28px; /* Smaller title */
+    }
+
+    .auth-subtitle {
+        font-size: 14px; /* Smaller subtitle */
+    }
+
+    .form-control {
+        padding: 10px; /* Smaller padding for inputs */
+        padding-left: 40px; /* Adjust left padding for smaller screens */
+    }
+
+    .btn-primary {
+        padding: 12px; /* Smaller button padding */
+    }
+}
+
+@media (max-width: 480px) {
+    #auth-left {
+        padding: 20px; /* Further reduced padding */
+    }
+
+    .auth-title {
+        font-size: 24px; /* Even smaller title */
+    }
+
+    .auth-subtitle {
+        font-size: 12px; /* Even smaller subtitle */
+    }
+
+    .form-control {
+        padding-left: 35px; /* Further adjust left padding for smaller screens */
+    }
+}
