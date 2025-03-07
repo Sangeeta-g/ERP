@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pg from 'pg'; // Importing Client from pg
-
+import bcrypt from 'bcrypt';
 // Initialize dotenv to load environment variables from a .env file
 dotenv.config();
 
@@ -20,10 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
-    database: "erp",
-    password: "sanjana",
+    database: "ERP",
+    password: "ERP@2025",
     port: 5432,
 });
+
 
 // Connect to the database
 db.connect(err => {
@@ -61,6 +62,8 @@ db.connect(err => {
     }
 });
 
+
+
 // Define a simple route
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -69,5 +72,5 @@ app.get('/', (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log('Server is running on port ${PORT}');
+    console.log(`Server is running on port ${PORT}`);
 });
