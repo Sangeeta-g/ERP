@@ -21,7 +21,7 @@ const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "ERP",
-    password: "Syedshahul@786",
+    password: "ERP@2025",
     port: 5432,
 });
 
@@ -65,9 +65,18 @@ db.connect(err => {
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
+app.get('/employees', async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM users');
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching employees:', err.stack);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log("Server is running on port ${PORT}");
+    console.log(`Server is running on port ${PORT}`);
 });
