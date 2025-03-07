@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import UserForm from "./UserForm";
 
-const App = () => {
-  return (
-    <div>App</div>
-  )
+function App() {
+  return <UserForm />;
 }
 
-export default App
+export default App;
