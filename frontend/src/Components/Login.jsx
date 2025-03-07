@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'; // Import your CSS file for styling
 import ERPLogo from '../assets/ERP_LOGO.jpg';
-import { FaUser , FaLock } from 'react-icons/fa'; // Importing user and lock icons from react-icons
+import { FaUser , FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'; // Importing user, lock, eye, and eye-slash icons
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Swal from 'sweetalert2'; // Import SweetAlert2
@@ -11,6 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // State for showing/hiding password
     const navigate = useNavigate(); // Initialize useNavigate
 
     const handleSubmit = async (e) => {
@@ -91,44 +92,38 @@ const Login = () => {
                     </div>
                     <div className="form-group mb-3 position-relative">
                         <input
-                            type="password"
+                            type={showPassword ? 'text' : 'password'} // Toggle input type
                             className="form-control form-control-lg"
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <FaLock className="form-control-icon" />
+                        {/* Show/Hide Password Icon */}
+                        <span 
+                            className="password-toggle-icon" 
+                            onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
-                    <div className="form-check mb-4">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            checked={keepLoggedIn}
-                            onChange={() => setKeepLoggedIn(!keepLoggedIn)}
-                            id="flexCheckDefault"
-                        />
-                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                            Keep me logged in
-                        </label>
+                   
+                        <button type="submit" className="btn-primary btn-lg w-100">
+                            Log in
+                        </button>
+                    </form>
+                    <div className="text-center mt-4">
+                        
+                        <p>
+                            <a className="font-bold" href="auth-forgot-password.html">Forgot password?</a>.
+                        </p>
                     </div>
-                    <button type="submit" className="btn-primary btn-lg w-100">
-                        Log in
-                    </button>
-                </form>
-                <div className="text-center mt-4">
-                    <p className="text-gray-600">
-                        Don't have an account? <a href="auth-register.html" className="font-bold">Sign up</a>.
-                    </p>
-                    <p>
-                        <a className="font-bold" href="auth-forgot-password.html">Forgot password?</a>.
-                    </p>
                 </div>
+    
+                {/* Right Side - Blue Background */}
+                <div className="auth-right"></div>
             </div>
-
-            {/* Right Side - Blue Background */}
-            <div className="auth-right"></div>
-        </div>
-    );
-};
-
-export default Login;
+        );
+    };
+    
+    export default Login;

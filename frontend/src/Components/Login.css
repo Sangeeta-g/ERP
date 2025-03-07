@@ -67,7 +67,14 @@
     box-shadow: 0px 0px 8px rgba(59, 89, 152, 0.3);
     outline: none;
 }
-
+.password-toggle-icon {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d; /* Change color as needed */
+}
 /* Icons inside input fields */
 .form-control-icon {
     position: absolute;
@@ -95,7 +102,7 @@
     font-size: 18px;
     border-radius: 8px;
     transition: 0.3s;
-    width: 90%;
+    width: 93%;
     margin-top: 20px;
 }
 
