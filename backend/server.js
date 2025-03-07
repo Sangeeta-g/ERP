@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pg from 'pg'; // Importing Client from pg
-import bcrypt from 'bcrypt';
+
 // Initialize dotenv to load environment variables from a .env file
 dotenv.config();
 
@@ -24,7 +24,6 @@ const db = new pg.Client({
     password: "ERP@2025",
     port: 5432,
 });
-
 
 // Connect to the database
 db.connect(err => {
@@ -62,12 +61,18 @@ db.connect(err => {
     }
 });
 
-
-
 // Define a simple route
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+
+app.get("/users", async (req, res) => {
+    try {
+        const result = await db.query("SELECT * FROM users");
+        res.json(result.rows);
+    } catch (err) {
+        console.error("❌ Error fetching users:", err);
+        res.status(500).send("Server Error");
+    }
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
