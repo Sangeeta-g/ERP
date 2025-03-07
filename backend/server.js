@@ -21,7 +21,7 @@ const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "ERP",
-    password: "Syedshahul@786",
+    password: "ERP@2025",
     port: 5432,
 });
 
@@ -64,6 +64,23 @@ db.connect(err => {
 // Define a simple route
 app.get('/', (req, res) => {
     res.send('Hello World!');
+});
+
+app.post('/add-user', async (req, res) => {
+    try {
+        const { email, password_hash, role, first_name, last_name, phone, department, position, salary, date_of_joining, status } = req.body;
+
+        const result = await db.query(
+            `INSERT INTO users (email, password_hash, role, first_name, last_name, phone, department, position, salary, date_of_joining, status)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
+            [email, password_hash, role, first_name, last_name, phone, department, position, salary, date_of_joining, status]
+        );
+
+        res.status(201).json({ message: 'User added successfully', user: result.rows[0] });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Database error' });
+    }
 });
 
 // Start the server
