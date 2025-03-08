@@ -1,8 +1,10 @@
 
 import React from "react";
-import UserForm from "./UserForm";
+import UserForm from "./Components/UserForm";
+import DashboardContent from "./components/DashboardContent";
+
 // App.js
-import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Components/Login'; // Adjust the path as necessary
 import AdminPortal from './Components/AdminPortal'; // Create this component
@@ -14,9 +16,11 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Login />} />
-                <Route path="/admin-portal" element={<AdminPortal />} />
+                <Route path="/admin-portal" element={< DashboardContent />} />
                 <Route path="/hr-portal" element={<HRPortal />} />
                 <Route path="/employee-portal" element={<EmployeePortal />} />
+                <Route path="/UserForm " element={<UserForm />} />
+                <Route path ="/DashboardContent" element={<DashboardContent /> }/>
             </Routes>
         </Router>
     );
