@@ -19,25 +19,6 @@ app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Database connection setup
-const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "ERP",
-    password: "ERP@2025",
-    port: 5432,
-});
-
-(async () => {
-    try {
-        await db.connect();
-        console.log('Connected to PostgreSQL database');
-    } catch (err) {
-        console.error('Database connection error:', err);
-        process.exit(1);
-    }
-})();
-
-
 
 // Login route
 app.post('/login', async (req, res) => {
@@ -60,6 +41,7 @@ app.post('/login', async (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
+
 // Use the lead routes
 app.use('/api/leads', leadRoutes);
 
@@ -76,7 +58,6 @@ app.get('/', (req, res) => {
 
 
 
-// Start the server and listen on the specified port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
