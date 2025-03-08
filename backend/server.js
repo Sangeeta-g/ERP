@@ -10,7 +10,7 @@ dotenv.config();
 
 // Importing the lead routes
 import leadRoutes from './routes/lead.js';
-
+import attendancesRoutes from './routes/attendance.js';
 // Create an instance of an Express application
 const app = express();
 
@@ -19,9 +19,20 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(bodyParser.json()); // Parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
+// Database connection setup
+const db = new pg.Client({
+    user: "postgres",
+    host: "localhost",
+    database: "ERP",
+    password: "ERP@2025",
+    port: 5432,
+});
+db.connect()
+    .then(() => console.log('Database connected successfully!'))
+    .catch(err => console.error('Database connection error:', err.stack));
 // Use the lead routes
 app.use('/api/leads', leadRoutes);
-
+app.use('/api/attendances',attendancesRoutes );
 // Connect to the database
 db.connect(err => {
     if (err) {
