@@ -1,0 +1,172 @@
+/* Sidebar.css */
+
+.sidebar {
+    width: 300px;
+    background-color: #fff;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    font-family: Nunito, sans-serif;
+    color: #6c757d; /* Changed from #607080 */
+    transition: left 0.3s ease; /* Add transition for smooth animation */
+
+}
+
+.sidebar-wrapper {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    overflow-y: auto;
+    background-color: #fff;
+    bottom: 0;
+    padding: 0;
+}
+
+ .sidebar-header {
+    padding: 2rem 2rem 1rem;
+    font-size: 2rem;
+}
+.sidebar-header a {
+    display: flex;
+    align-items: center;
+    color: #435ebe;
+    text-decoration: none;
+}
+
+.sidebar-logo-icon {
+    font-size: 28px;
+    color: #435ebe;
+    margin-right: 10px;
+}
+
+.sidebar-logo {
+    color: #435ebe;
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0;
+}
+
+.sidebar-menu {
+    padding: 0;
+    margin-top: 2rem;
+}
+
+.sidebar-title {    /*Added title class styling*/
+    padding: 0 1rem;
+    margin: 1.5rem 0 1rem; /*match*/
+    font-size: 1rem;
+    list-style: none;
+    font-weight: 600;
+    color: #6c757d; /* Changed from #25396f */
+    margin-left: 30px;
+}
+
+.sidebar-item {
+    list-style: none;
+    margin-top: .5rem;
+    position: relative;
+    padding: 0 2rem;
+}
+
+.sidebar-button {
+    background-color: transparent;
+    color: #6c757d; /* Changed from #25396f */
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.5s;
+    font-weight: 600;
+    font-size: 16px;
+    height: 46.3958px;
+}
+
+.sidebar-button.active {
+    background-color: #435ebe;
+    color: white;
+}
+
+.sidebar-button:hover {
+    background-color: #435ebe;
+    color: white;
+}
+
+.sidebar-icon {
+    margin-right: 1rem;
+    font-size: 18px;
+}
+
+.dropdown-arrow {
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.sidebar-button.dropdown-button {
+    justify-content: space-between;
+}
+
+.sidebar-wrapper .menu .sidebar-link {
+    display: block;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    transition: all 0.5s;
+    text-decoration: none;
+    color: #6c757d;  /* Changed from #25396f */
+}
+
+.sidebar-wrapper .menu .sidebar-link span {
+    margin-left: 1rem;
+}
+
+.sidebar-text-item {
+    display: block;
+    padding: 0.7rem 1rem;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.5s;
+    color: #6c757d;  /* Changed from #25396f */
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.sidebar-text-item:hover {
+    background-color: rgba(67, 94, 190, 0.1);
+}
+
+/* Add this class to handle the sidebar animation */
+.sidebar.open {
+    left: 0;
+}
+
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        left: -300px; /* Hide the sidebar off-screen */
+        z-index: 100;
+    }
+
+    .sidebar.open {
+        left: 0; /* Slide in the sidebar */
+    }
+
+    .sidebar-close-icon {   
+      font-size: 24px;
+      cursor: pointer;
+      color: #6c757d;
+    }
+
+}
