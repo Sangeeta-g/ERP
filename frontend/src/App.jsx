@@ -15,7 +15,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Login />} />
-                <Route path="/admin-portal" element={<AdminPortal />} /> {/* Changed to AdminPortal Component*/}
+                <Route path="/admin-portal" element={<DashboardContent />} /> {/* Changed to AdminPortal Component*/}
                 <Route path="/hr-portal" element={<HRPortal />} />
                 <Route path="/employee-portal" element={<EmployeePortal />} />
                 <Route path="/user-form" element={<UserForm />} /> {/* Corrected path & consistent naming */}
