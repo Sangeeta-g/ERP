@@ -10,7 +10,8 @@ router.get('/', async (req, res) => {
         res.json(result.rows);
     } catch (err) {
         console.error('Error fetching employees:', err);
-      
+    }
+})
       
 router.post('/', async (req, res) => {
     const { email, password_hash, role, first_name, last_name, phone, department, position, salary, date_of_joining } = req.body;

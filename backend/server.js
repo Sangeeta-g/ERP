@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import pg from 'pg';
 
+import pool from './config/db.js'; 
 // Load environment variables from the .env file
 dotenv.config();
 
@@ -17,26 +18,6 @@ const app = express();
 app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-// Database connection setup
-const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "ERP",
-    password: "ERP@2025",
-    port: 5432,
-});
-
-(async () => {
-    try {
-        await db.connect();
-        console.log('Connected to PostgreSQL database');
-    } catch (err) {
-        console.error('Database connection error:', err);
-        process.exit(1);
-    }
-})();
-
 
 
 // Login route
@@ -65,7 +46,6 @@ app.use('/api/leads', leadRoutes);
 
 app.use('/api/employees', employeeRoutes);
 
-import pool from './config/db.js'; 
 
 
 
