@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaTachometerAlt, FaLayerGroup, FaCaretDown, FaTh, FaRegBell, FaTv, FaListAlt, FaPencilAlt, FaTimes, FaTable } from 'react-icons/fa';
+import { FaTachometerAlt, FaLayerGroup, FaCaretDown, FaTh, FaRegBell, FaTv, FaListAlt, FaPencilAlt, FaTimes, FaTable} from 'react-icons/fa';
 import { SiGoogleforms } from "react-icons/si";
 import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 import '../components/Sidebar.css';
@@ -17,11 +17,14 @@ function Sidebar({ isOpen, onClose }) {
   const toggleLayouts = () => setLayoutsOpen(!isLayoutsOpen);
   const toggleFormElements = () => setFormElementsOpen(!isFormElementsOpen);
   const toggleFormEditor = () => setFormEditorOpen(!isFormEditorOpen);
-
+  
   // Handle navigation to DataTable
-  const goToDataTable = () => {
+  const goToDataTable = () => { 
     navigate("/datatable");  // Navigate to DataTable page
   };
+  const goTOForm = () => {
+    navigate("/form");  // Navigate to Form page
+  }
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
@@ -49,7 +52,7 @@ function Sidebar({ isOpen, onClose }) {
 
         <ul className="sidebar-menu">
           <li className="sidebar-item">
-            <button className="sidebar-button active">
+            <button className="sidebar-button " >
               <FaTh className="sidebar-icon" />
               Dashboard
             </button>
@@ -58,6 +61,12 @@ function Sidebar({ isOpen, onClose }) {
             <button className="sidebar-button" onClick={goToDataTable}>
               <FaTable className="sidebar-icon" />
               DataTable
+            </button>
+          </li>
+          <li className="sidebar-item">
+            <button className="sidebar-button" onClick={goTOForm}>
+              <SiGoogleforms className="sidebar-icon" />
+              Form
             </button>
           </li>
 

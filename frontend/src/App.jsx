@@ -10,6 +10,8 @@ import AdminPortal from './Components/AdminPortal'; // Create this component
 import HRPortal from './Components/HRPortal'; // Create this component
 import EmployeePortal from './Components/EmployeePortal'; // Create this component
 import TableComponent from "./Components/DataTable";
+import Form from "./Components/Form";
+import DataTable from "./Components/DataTable";
 
 const App = () => {
     return (
@@ -21,7 +23,8 @@ const App = () => {
                 <Route path="/employee-portal" element={<EmployeePortal />} />
                 <Route path="/user-form" element={<UserForm />} /> {/* Corrected path & consistent naming */}
                 <Route path ="/dashboard-content" element={<DashboardContent /> }/> {/* Corrected path & consistent naming */}
-                <Route path ="/datatable" element={<TableComponent />}/>
+                <Route path ="/datatable" element={<DataTable />}/>
+                <Route path ="/form" element={<Form />} />
             </Routes>
         </Router>
     );
