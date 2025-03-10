@@ -1,75 +1,62 @@
-// Importing required packages
 import express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import pg from 'pg'; // Importing Client from pg
-import bcrypt from 'bcrypt';
-// Initialize dotenv to load environment variables from a .env file
+import pg from 'pg';
+
+import pool from './config/db.js'; 
+// Load environment variables from the .env file
 dotenv.config();
+
+// Importing the lead routes
+import leadRoutes from './routes/lead.js';
+import employeeRoutes from './routes/employee.js';
 
 // Create an instance of an Express application
 const app = express();
 
 // Middleware setup
-app.use(cors()); // Enable CORS
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-// Database connection setup
-const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "ERP",
-    password: "ERP@2025",
-    port: 5432,
-});
+app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 
-// Connect to the database
-db.connect(err => {
-    if (err) {
-        console.error('Database connection error:', err.stack);
-    } else {
-        console.log('Database connected successfully!');
+// Login route
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
 
-        // Create the users table
-        const createTableQuery = `
-            CREATE TABLE IF NOT EXISTS users (
-                id SERIAL PRIMARY KEY,
-                email VARCHAR(100) UNIQUE NOT NULL,
-                password_hash TEXT NOT NULL,
-                role VARCHAR(20) DEFAULT 'employee' CHECK (role IN ('admin', 'HR', 'employee')),
-                first_name VARCHAR(50) NOT NULL,
-                last_name VARCHAR(50) NOT NULL,
-                phone VARCHAR(20),
-                department VARCHAR(50),
-                position VARCHAR(50),
-                salary DECIMAL(10,2) NOT NULL CHECK (salary >= 0),
-                date_of_joining DATE NOT NULL,
-                status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            );
-        `;
+    try {
+        // Query the database for the user
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [username]);
+        const user = result.rows[0];
 
-        db.query(createTableQuery, (err, res) => {
-            if (err) {
-                console.error('Error creating table:', err.stack);
-            } else {
-                console.log('Users table created successfully!');
+        if (user) {
+            // Check if the provided password matches the stored password hash
+            if (user.password_hash === password) { // Note: Replace this with a hash comparison in production
+                return res.json({ success: true, role: user.role });
             }
-        });
+        }
+        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    } catch (err) {
+        console.error('Error during login:', err.stack);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
 
+// Use the lead routes
+app.use('/api/leads', leadRoutes);
+
+app.use('/api/employees', employeeRoutes);
 
 
-// Define a simple route
+
+
+// Define a simple route for testing
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-// Start the server
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
