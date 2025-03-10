@@ -1,0 +1,261 @@
+/* Dashboard.css */
+
+body{
+    background-color: aliceblue;
+}
+
+/* Stats Card */
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff
+    
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .stats-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+  }
+  
+  .stats-icon.purple {
+    background-color: #6f42c1;
+  }
+  
+  .stats-icon.blue {
+    background-color: #0d6efd;
+  }
+  
+  .stats-icon.green {
+    background-color: #198754;
+  }
+  
+  .stats-icon.red {
+    background-color: #dc3545;
+  }
+  
+  .text-muted {
+    color: #6c757d !important;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .font-extrabold {
+    font-weight: 800;
+  }
+  
+  .mb-0 {
+    margin-bottom: 0;
+  }
+  
+  /* Grid Layout */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  .col-6,
+  .col-lg-3,
+  .col-md-6 {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  .col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .col-lg-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .col-lg-3 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .col-md-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+  /* Add this to your Dashboard.css */
+.stats-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+  }
+  
+  .stats-icon.purple {
+    background-color: #6f42c1; /* Purple */
+  }
+  
+  .stats-icon.blue {
+    background-color: #435EBE; /* Blue */
+  }
+  
+  .stats-icon.green {
+    background-color: #28a745; /* Green */
+  }
+  
+  .stats-icon.red {
+    background-color: #dc3545; /* Red */
+  }
+
+  /* Dashboard.css */
+
+
+
+
+  /* Add this to your Dashboard.css */
+body {
+    font-size: 1rem;
+    font-weight: 700;
+    /* line-height: 1.5; */
+    background-color: rgb(150, 203, 250);
+    color: #25396f;  
+
+}
+  
+  h4, h5, h6 {
+    font-weight: bold;
+  }
+  
+  .text-muted {
+    color: #0f5491 !important;
+  }
+  
+  .font-bold {
+    font-weight: bold;
+  }
+  
+  .font-extrabold {
+    font-weight: 800;
+  }
+  
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  
+  .mt-3 {
+    margin-top: 1rem !important;
+  }
+  
+  .px-4 {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  
+  .py-3 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  /* Add this to your Dashboard.css */
+.card {
+    margin-bottom: 1.5rem;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+  }
+  
+  .card-header {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .row {
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+  }
+  
+  .col-12,
+  .col-lg-9,
+  .col-lg-3 {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  /* Dashboard.css */
+
+/* Ensure the row takes full width */
+.row {
+    width: 100%;
+
+  }
+  
+  /* Ensure the card takes full width of its parent */
+  .card {
+    width: 100%; /* Make the card take full width */
+   
+  }
+  
+/* Dashboard.css */
+
+/* Apply Nunito font globally */
+body {
+    font-family: 'Nunito', sans-serif;
+  }
+  
+  /* Optional: Apply Nunito to specific elements */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600; /* Semi-Bold */
+  }
+  
+  p, span, a {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400; /* Regular */
+  }
+  
+  /* Apply Nunito to specific classes */
+  .font-bold {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700; /* Bold */
+  }
+  
+  .text-muted {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400; /* Regular */
+    color: #6c757d !important;
+  }
+
+  .card-header {
+    background-color: #fff;
+  }

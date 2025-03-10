@@ -1,0 +1,15 @@
+/* App.css */
+body {
+    background-color: aliceblue;
+}
+
+.erp-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+ 
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: aliceblue;
+  }
