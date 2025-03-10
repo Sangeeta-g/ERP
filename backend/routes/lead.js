@@ -85,3 +85,26 @@ router.get('/view-leads', async (req, res) => {
 
 
 export default router;  // Update to use export default
+
+
+// Sales employee 
+router.get("/sales-employees", async (req, res) => {
+    try {
+        const query = `
+        SELECT id, first_name, last_name FROM users 
+        WHERE department = 'Sales' AND role = 'employee';
+    `;
+
+  
+      const result = await pool.query(query);
+  
+      if (result.rowCount === 0) {
+        return res.status(404).json({ message: "No sales employees found" });
+      }
+  
+      res.status(200).json({ employees: result.rows });
+    } catch (error) {
+      console.error("Error fetching sales employees:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });

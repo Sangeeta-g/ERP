@@ -5,6 +5,7 @@ import { FaUser , FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'; // Importin
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Swal from 'sweetalert2'; // Import SweetAlert2
+import { useUser } from '../UserContext';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -13,6 +14,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false); // State for showing/hiding password
     const navigate = useNavigate(); // Initialize useNavigate
+    const { loginUser } = useUser();  
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,6 +27,8 @@ const Login = () => {
             });
 
             if (response.data.success) {
+                const { first_name, last_name, role } = response.data;
+                loginUser({ first_name, last_name, role }); // Store user data in context
                 console.log('Login successful! Role:', response.data.role);
                 // Show success alert
                 Swal.fire({
@@ -43,6 +47,9 @@ const Login = () => {
                             break;
                         case 'employee':
                             navigate('/employee-portal'); // Redirect to employee portal
+                            break;
+                        case 'sales_manager':
+                            navigate('/sales-manager');
                             break;
                         default:
                             navigate('/'); // Default redirect

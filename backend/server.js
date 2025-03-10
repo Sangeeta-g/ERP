@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pg from 'pg';
+import bcrypt from 'bcrypt';
 
 import pool from './config/db.js'; 
 // Load environment variables from the .env file
@@ -19,8 +20,45 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
+//  const insertSalesManager = async () => {
+//      try {
+//          const email = 'akash@gmail.com'; // Sales Manager email
+//          const role = 'employee';      // Role of the user
+//          const firstName = 'Akash';         // First Name
+//          const lastName = 'M';        // Last Name
+//          const phone = '9876543210';        // Sales Manager's phone number
+//          const department = 'Sales';        // Department
+//          const position = 'Inside Sales';  // Position
+//          const salary = 30000.00;           // Salary
+//          const joiningDate = '2025-01-06';  // Joining date
 
-// Login route
+//       // Password for Sales Manager (plain text)
+//          const plainPassword = '1234';
+
+//          // Hash the password before inserting into the database
+//         const hashedPassword = await bcrypt.hash(plainPassword, 10);
+
+//          // Insert query to insert the Sales Manager into the users table
+//          const insertQuery = `
+//              INSERT INTO users (email, password_hash, role, first_name, last_name, phone, department, position, salary, date_of_joining, status)
+//              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'active')
+//              ON CONFLICT (email) DO NOTHING;  -- Avoid inserting duplicate users
+//          `;
+
+//          // Execute the insert query
+//          await pool.query(insertQuery, [
+//              email, hashedPassword, role, firstName, lastName, phone, department, position, salary, joiningDate
+//          ]);
+
+//          console.log('Sales Manager inserted successfully with hashed password!');
+//      } catch (error) {
+//          console.error('Error inserting Sales Manager:', error);
+//      }
+//  };
+
+// // Call the function to insert the Sales Manager
+// insertSalesManager();
+// // Login route
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -28,11 +66,15 @@ app.post('/login', async (req, res) => {
         // Query the database for the user
         const result = await pool.query('SELECT * FROM users WHERE email = $1', [username]);
         const user = result.rows[0];
-
+        
         if (user) {
-            // Check if the provided password matches the stored password hash
-            if (user.password_hash === password) { // Note: Replace this with a hash comparison in production
-                return res.json({ success: true, role: user.role });
+            // Compare the entered password with the hashed password in the database
+            const isPasswordValid = await bcrypt.compare(password, user.password_hash);
+
+            if (isPasswordValid) {
+                console.log(user.first_name)
+                // Password matches, return success
+                return res.json({ success: true, role: user.role, first_name: user.first_name, last_name: user.last_name,});
             }
         }
         return res.status(401).json({ success: false, message: 'Invalid credentials' });

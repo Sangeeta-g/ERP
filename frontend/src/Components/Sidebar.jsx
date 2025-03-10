@@ -1,168 +1,66 @@
 import React, { useState } from 'react';
-import { FaTachometerAlt, FaLayerGroup, FaCaretDown, FaTh, FaRegBell, FaTv, FaListAlt, FaPencilAlt, FaTimes } from 'react-icons/fa';
-import { SiGoogleforms } from "react-icons/si";
+import { FaTachometerAlt, FaTh, FaListAlt, FaTimes, FaUsers } from 'react-icons/fa';
+import { useUser } from '../UserContext'; // Import UserContext to get user role
 import '../components/Sidebar.css';
 
 function Sidebar({ isOpen, onClose }) {
+  const { user } = useUser(); // Get logged-in user details
   const [isComponentsOpen, setIsComponentsOpen] = useState(false);
-  const [isExtraComponentsOpen, setIsExtraComponentsOpen] = useState(false);
-  const [isLayoutsOpen, setLayoutsOpen] = useState(false);
-  const [isFormElementsOpen, setFormElementsOpen] = useState(false);
-  const [isFormEditorOpen, setFormEditorOpen] = useState(false);
 
   const toggleComponents = () => setIsComponentsOpen(!isComponentsOpen);
-  const toggleExtraComponents = () => setIsExtraComponentsOpen(!isExtraComponentsOpen);
-  const toggleLayouts = () => setLayoutsOpen(!isLayoutsOpen);
-  const toggleFormElements = () => setFormElementsOpen(!isFormElementsOpen);
-  const toggleFormEditor = () => setFormEditorOpen(!isFormEditorOpen);
+
+  // Define role-based menu items
+  const roleBasedMenus = {
+    admin: [
+      { name: "Dashboard", icon: <FaTh />, path: "/admin-portal" },
+      { name: "User Management", icon: <FaListAlt />, path: "/user-form" },
+      { name: "HR Portal", icon: <FaTh />, path: "/hr-portal" },
+    ],
+    HR: [
+      { name: "Dashboard", icon: <FaTh />, path: "/hr-portal" },
+      { name: "Employee Management", icon: <FaListAlt />, path: "/employee-portal" },
+    ],
+    employee: [
+      { name: "Dashboard", icon: <FaTh />, path: "/employee-portal" },
+      { name: "Attendance", icon: <FaListAlt />, path: "/attendance" },
+    ],
+    sales_manager: [
+      { name: "Dashboard", icon: <FaTh />, path: "/sales-manager" },
+      { name: "Leads", icon: <FaUsers />, path: "/view-leads" },
+      { name: "Sales Reports", icon: <FaListAlt />, path: "/sales-reports" },
+    ]
+  };
+
+  // Get the menu items based on the user's role, defaulting to an empty array
+  const menuItems = roleBasedMenus[user?.role] || [];
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-wrapper">
-         <div className="sidebar-header">
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="logo">
-                <a href="index.html">
-                  <img src="https://cdn-icons-png.flaticon.com/512/8214/8214212.png" alt="Logo" className="sidebar-logo-icon" style={{ width: '35px', height: '35px', marginRight: '10px' }}/> {/* Replaced FaUserCircle with img tag */}
-                   Mazer
-                </a>
-              </div>
-              {isOpen && (
-                  <FaTimes className="sidebar-close-icon" onClick={onClose} />
-              )}
-
+        <div className="sidebar-header">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="logo">
+              <a href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/8214/8214212.png" 
+                  alt="Logo" className="sidebar-logo-icon" 
+                  style={{ width: '35px', height: '35px', marginRight: '10px' }}
+                />
+                Mazer
+              </a>
             </div>
+            {isOpen && <FaTimes className="sidebar-close-icon" onClick={onClose} />}
           </div>
+        </div>
 
-        <li className="sidebar-title">Menu</li>
 
         <ul className="sidebar-menu">
-          <li className="sidebar-item">
-            <button className="sidebar-button active">
-              <FaTh className="sidebar-icon" />
-              Dashboard
-            </button>
-          </li>
-
-          <li className="sidebar-item">
-            <button className="sidebar-button dropdown-button" onClick={toggleComponents}>
-              <FaLayerGroup className="sidebar-icon" />
-              Components
-              <FaCaretDown className="dropdown-arrow" />
-            </button>
-          </li>
-          {isComponentsOpen && (
-            <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Alert
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Badge
-                </a>
-              </li>
-            </>
-          )}
-
-          {/* Extra Components Section */}
-          <li className="sidebar-item">
-            <button className="sidebar-button dropdown-button" onClick={toggleExtraComponents}>
-              <FaRegBell className="sidebar-icon" />
-              Extra Components
-              <FaCaretDown className="dropdown-arrow" />
-            </button>
-          </li>
-          {isExtraComponentsOpen && (
-            <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Sweet Alert
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Toastify
-                </a>
-              </li>
-            </>
-          )}
-
-          {/* Layouts Section */}
-          <li className="sidebar-item">
-            <button className="sidebar-button dropdown-button" onClick={toggleLayouts}>
-              <FaTv className="sidebar-icon" />
-              Layouts
-              <FaCaretDown className="dropdown-arrow" />
-            </button>
-          </li>
-          {isLayoutsOpen && (
-            <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Default Layout
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Vertical Layout
-                </a>
-              </li>
-            </>
-          )}
-
-          <li className="sidebar-title">Forms & Tables</li>
-          {/* Form Elements Section */}
-          <li className="sidebar-item">
-            <button className="sidebar-button dropdown-button" onClick={toggleFormElements}>
-              <SiGoogleforms className="sidebar-icon" />
-              Form Elements
-              <FaCaretDown className="dropdown-arrow" />
-            </button>
-          </li>
-          {isFormElementsOpen && (
-            <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Input
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Select
-                </a>
-              </li>
-            </>
-          )}
-          <li className="sidebar-item">
-            <a href="#" className="sidebar-text-item">
-              <FaListAlt className="sidebar-icon" />
-              Form Layout
-            </a>
-          </li>
-          {/* Form Editor Section */}
-          <li className="sidebar-item">
-            <button className="sidebar-button dropdown-button" onClick={toggleFormEditor}>
-              <FaPencilAlt className="sidebar-icon" />
-              Form Editor
-              <FaCaretDown className="dropdown-arrow" />
-            </button>
-          </li>
-          {isFormEditorOpen && (
-            <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  CKEditor
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  TinyMCE
-                </a>
-              </li>
-            </>
-          )}
+          {menuItems.map((item, index) => (
+            <li className="sidebar-item" key={index}>
+              <a href={item.path} className="sidebar-text-item">
+                {item.icon} {item.name}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
