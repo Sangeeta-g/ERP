@@ -26,7 +26,7 @@ app.post('/login', async (req, res) => {
 
     try {
         // Query the database for the user
-        const result = await db.query('SELECT * FROM users WHERE email = $1', [username]);
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [username]);
         const user = result.rows[0];
 
         if (user) {
