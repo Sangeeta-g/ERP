@@ -14,6 +14,10 @@ import { UserProvider } from './UserContext';
 import ViewLeads from "./Components/ViewLeads";
 import AddLeads from "./Components/AddLeads";
 
+import TableComponent from "./Components/DataTable";
+import UserForm from './Components/UserForm';
+
+
 const App = () => {
     return (
         <UserProvider>
@@ -28,6 +32,10 @@ const App = () => {
                 <Route path="/sales-manager" element={<SalesManager />}/>
                 <Route path="/view-leads" element={<ViewLeads />}/>
                 <Route path="/add-leads" element={<AddLeads/>}/>
+                <Route path ="/dashboard-content" element={<DashboardContent /> }/> {/* Corrected path & consistent naming */}
+
+                <Route path ="/datatable" element={<TableComponent />}/>
+
             </Routes>
         </Router>
         </UserProvider>

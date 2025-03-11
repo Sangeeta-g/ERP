@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         console.error('Error fetching employees:', err);
     }
 })
-      
+
 // API Route to handle user registration
 router.post("/", async (req, res) => {
     const {
@@ -54,6 +54,5 @@ router.post("/", async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   });
-  
-  
+
 export default router;
