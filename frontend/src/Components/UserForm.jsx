@@ -6,7 +6,9 @@ const UserForm = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+
     role: "",
+
     first_name: "",
     last_name: "",
     phone: "",
@@ -17,11 +19,13 @@ const UserForm = () => {
   });
 
   const handleChange = (e) => {
+
     let value = e.target.value;
     if (e.target.name === "salary") {
       value = Number(value); // Ensure salary is a number
     }
     setFormData({ ...formData, [e.target.name]: value });
+
   };
 
   const handleSubmit = async (e) => {
@@ -32,7 +36,9 @@ const UserForm = () => {
       alert(response.data.message);
     } catch (error) {
       console.error("Error submitting form:", error);
+
       alert("Failed to submit data: " + (error.response?.data?.error || error.message));
+
     }
   };
 
@@ -50,6 +56,7 @@ const UserForm = () => {
             <input type="password" name="password" className="form-control" onChange={handleChange} required />
           </div>
           <div className="mb-3">
+
             <label>Role</label>
             <select name="role" className="form-control" onChange={handleChange} required>
               <option value="">Select Role</option>
@@ -59,6 +66,7 @@ const UserForm = () => {
             </select>
           </div>
           <div className="mb-3">
+
             <label>First Name</label>
             <input type="text" name="first_name" className="form-control" onChange={handleChange} required />
           </div>

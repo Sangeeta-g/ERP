@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { FaTachometerAlt, FaLayerGroup, FaCaretDown, FaTh, FaRegBell, FaTv, FaListAlt, FaPencilAlt, FaTimes } from 'react-icons/fa';
+import { FaTachometerAlt, FaLayerGroup, FaCaretDown, FaTh, FaRegBell, FaTv, FaListAlt, FaPencilAlt, FaTimes, FaTable } from 'react-icons/fa';
 import { SiGoogleforms } from "react-icons/si";
+import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 import '../components/Sidebar.css';
 
 function Sidebar({ isOpen, onClose }) {
+  const navigate = useNavigate();  // Initialize useNavigate hook
+
+
+function Sidebar({ isOpen, onClose }) {
+
   const [isComponentsOpen, setIsComponentsOpen] = useState(false);
   const [isExtraComponentsOpen, setIsExtraComponentsOpen] = useState(false);
   const [isLayoutsOpen, setLayoutsOpen] = useState(false);
@@ -15,6 +21,34 @@ function Sidebar({ isOpen, onClose }) {
   const toggleLayouts = () => setLayoutsOpen(!isLayoutsOpen);
   const toggleFormElements = () => setFormElementsOpen(!isFormElementsOpen);
   const toggleFormEditor = () => setFormEditorOpen(!isFormEditorOpen);
+
+
+  // Handle navigation to DataTable
+  const goToDataTable = () => {
+    navigate("/datatable");  // Navigate to DataTable page
+  };
+
+  return (
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-wrapper">
+        <div className="sidebar-header">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="logo">
+              <a href="index.html">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/8214/8214212.png"
+                  alt="Logo"
+                  className="sidebar-logo-icon"
+                  style={{ width: '35px', height: '35px', marginRight: '10px' }}
+                />
+                Mazer
+              </a>
+            </div>
+            {isOpen && (
+              <FaTimes className="sidebar-close-icon" onClick={onClose} />
+            )}
+          </div>
+        </div>
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
@@ -34,6 +68,7 @@ function Sidebar({ isOpen, onClose }) {
             </div>
           </div>
 
+
         <li className="sidebar-title">Menu</li>
 
         <ul className="sidebar-menu">
@@ -43,6 +78,14 @@ function Sidebar({ isOpen, onClose }) {
               Dashboard
             </button>
           </li>
+
+          <li className="sidebar-item">
+            <button className="sidebar-button" onClick={goToDataTable}>
+              <FaTable className="sidebar-icon" />
+              DataTable
+            </button>
+          </li>
+
 
           <li className="sidebar-item">
             <button className="sidebar-button dropdown-button" onClick={toggleComponents}>
@@ -141,6 +184,7 @@ function Sidebar({ isOpen, onClose }) {
               Form Layout
             </a>
           </li>
+
           {/* Form Editor Section */}
           <li className="sidebar-item">
             <button className="sidebar-button dropdown-button" onClick={toggleFormEditor}>
