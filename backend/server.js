@@ -10,6 +10,7 @@ dotenv.config();
 // Importing the lead routes
 import leadRoutes from './routes/lead.js';
 import employeeRoutes from './routes/employee.js';
+import attendanceRoutes from './routes/attendance.js';
 
 // Create an instance of an Express application
 const app = express();
@@ -46,6 +47,8 @@ app.post('/login', async (req, res) => {
 app.use('/api/leads', leadRoutes);
 
 app.use('/api/employees', employeeRoutes);
+
+app.use('/api/attendances', attendanceRoutes);
 
 
 
