@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { FaTachometerAlt, FaLayerGroup, FaCaretDown, FaTh, FaRegBell, FaTv, FaListAlt, FaPencilAlt, FaTimes, FaTable} from 'react-icons/fa';
+
+import { Link } from "react-router-dom"; // ✅ Import Link
+import { FaTachometerAlt, FaLayerGroup, FaCaretDown, FaTh, FaRegBell, FaTv, FaListAlt, FaPencilAlt, FaTimes, FaTable } from 'react-icons/fa';
+
 import { SiGoogleforms } from "react-icons/si";
 import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 import '../components/Sidebar.css';
@@ -59,6 +62,7 @@ function Sidebar({ isOpen, onClose }) {
             </button>
           </li>
 
+          {/* Components Section */}
           <li className="sidebar-item">
             <button className="sidebar-button" onClick={goToDataTable}>
               <FaTable className="sidebar-icon" />
@@ -81,39 +85,8 @@ function Sidebar({ isOpen, onClose }) {
           </li>
           {isComponentsOpen && (
             <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Alert
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Badge
-                </a>
-              </li>
-            </>
-          )}
-
-          {/* Extra Components Section */}
-          <li className="sidebar-item">
-            <button className="sidebar-button dropdown-button" onClick={toggleExtraComponents}>
-              <FaRegBell className="sidebar-icon" />
-              Extra Components
-              <FaCaretDown className="dropdown-arrow" />
-            </button>
-          </li>
-          {isExtraComponentsOpen && (
-            <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Sweet Alert
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Toastify
-                </a>
-              </li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">Alert</a></li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">Badge</a></li>
             </>
           )}
 
@@ -127,20 +100,13 @@ function Sidebar({ isOpen, onClose }) {
           </li>
           {isLayoutsOpen && (
             <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Default Layout
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Vertical Layout
-                </a>
-              </li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">Default Layout</a></li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">Vertical Layout</a></li>
             </>
           )}
 
           <li className="sidebar-title">Forms & Tables</li>
+
           {/* Form Elements Section */}
           <li className="sidebar-item">
             <button className="sidebar-button dropdown-button" onClick={toggleFormElements}>
@@ -151,23 +117,17 @@ function Sidebar({ isOpen, onClose }) {
           </li>
           {isFormElementsOpen && (
             <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Input
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  Select
-                </a>
-              </li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">Input</a></li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">Select</a></li>
             </>
           )}
+
+          {/* ✅ Link to FormMultiple.jsx */}
           <li className="sidebar-item">
-            <a href="#" className="sidebar-text-item">
+            <Link to="/form-multiple" className="sidebar-text-item">
               <FaListAlt className="sidebar-icon" />
               Form Layout
-            </a>
+            </Link>
           </li>
 
           {/* Form Editor Section */}
@@ -180,18 +140,18 @@ function Sidebar({ isOpen, onClose }) {
           </li>
           {isFormEditorOpen && (
             <>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  CKEditor
-                </a>
-              </li>
-              <li className="sidebar-item">
-                <a href="#" className="sidebar-text-item">
-                  TinyMCE
-                </a>
-              </li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">CKEditor</a></li>
+              <li className="sidebar-item"><a href="#" className="sidebar-text-item">TinyMCE</a></li>
             </>
           )}
+
+          {/* Data Table Section */}
+          <li className="sidebar-item">
+            <a href="#" className="sidebar-text-item">
+              <FaTable className="sidebar-icon" />
+              DataTable
+            </a>
+          </li>
         </ul>
       </div>
     </div>
