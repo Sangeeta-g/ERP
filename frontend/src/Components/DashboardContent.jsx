@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './DashboardContent.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faUserFriends, faUserPlus, faBookmark, faBars } from '@fortawesome/free-solid-svg-icons';
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
 import {
   Chart as ChartJS,
   CategoryScale,

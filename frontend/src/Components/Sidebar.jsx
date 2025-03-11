@@ -34,6 +34,14 @@ function Sidebar({ isOpen, onClose }) {
   // Get the menu items based on the user's role, defaulting to an empty array
   const menuItems = roleBasedMenus[user?.role] || [];
 
+  // Handle navigation to DataTable
+  const goToDataTable = () => { 
+    navigate("/datatable");  // Navigate to DataTable page
+  };
+  const goTOForm = () => {
+    navigate("/form");  // Navigate to Form page
+  }
+
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-wrapper">
