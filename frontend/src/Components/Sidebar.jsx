@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { FaTachometerAlt, FaTh, FaListAlt, FaTimes, FaUsers } from 'react-icons/fa';
-import { useUser } from '../UserContext'; // Import UserContext to get user role
+import React, { useEffect } from 'react';
+import { FaTh, FaListAlt, FaUsers, FaBars, FaTimes } from 'react-icons/fa';
+import { useUser } from '../UserContext';
 import '../components/Sidebar.css';
 
-function Sidebar({ isOpen, onClose }) {
-  const { user } = useUser(); // Get logged-in user details
-  const [isComponentsOpen, setIsComponentsOpen] = useState(false);
+function Sidebar({ isOpen, toggleSidebar }) {
+  const { user } = useUser();
 
-  const toggleComponents = () => setIsComponentsOpen(!isComponentsOpen);
+  useEffect(() => {
+    console.log("Sidebar isOpen state:", isOpen);
+  }, [isOpen]);
 
-  // Define role-based menu items
   const roleBasedMenus = {
     admin: [
       { name: "Dashboard", icon: <FaTh />, path: "/admin-portal" },
@@ -31,46 +31,32 @@ function Sidebar({ isOpen, onClose }) {
     ]
   };
 
-  // Get the menu items based on the user's role, defaulting to an empty array
   const menuItems = roleBasedMenus[user?.role] || [];
 
-  // Handle navigation to DataTable
-  const goToDataTable = () => { 
-    navigate("/datatable");  // Navigate to DataTable page
-  };
-  const goTOForm = () => {
-    navigate("/form");  // Navigate to Form page
-  }
-
   return (
-    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+    <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
       <div className="sidebar-wrapper">
         <div className="sidebar-header">
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="logo">
-              <a href="#">
-                <img src="https://cdn-icons-png.flaticon.com/512/8214/8214212.png" 
-                  alt="Logo" className="sidebar-logo-icon" 
-                  style={{ width: '35px', height: '35px', marginRight: '10px' }}
-                />
-                Mazer
-              </a>
-            </div>
-            {isOpen && <FaTimes className="sidebar-close-icon" onClick={onClose} />}
+          {/* <FaTimes className="sidebar-close-icon" onClick={toggleSidebar} /> */}
+          <div className="logo">
+            <a href="#" className='logo-text'>
+              <img src="https://cdn-icons-png.flaticon.com/512/8214/8214212.png" alt="Logo" className="sidebar-logo-icon" />
+              Mazer
+            </a>
           </div>
         </div>
-
 
         <ul className="sidebar-menu">
           {menuItems.map((item, index) => (
             <li className="sidebar-item" key={index}>
-              <a href={item.path} className="sidebar-text-item">
-                {item.icon} {item.name}
+              <a href={item.path} className="sidebar-text-item" onClick={toggleSidebar}>
+                {item.icon} <span>{item.name}</span>
               </a>
             </li>
           ))}
         </ul>
       </div>
+      <FaBars className="sidebar-toggle-icon" onClick={toggleSidebar} />
     </div>
   );
 }

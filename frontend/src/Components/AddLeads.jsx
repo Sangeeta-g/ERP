@@ -1,33 +1,42 @@
-import React, { useEffect,useState } from 'react';
-import './DashboardContent.css';
-import { useUser } from '../UserContext'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faUserFriends, faUserPlus, faBookmark, faBars } from '@fortawesome/free-solid-svg-icons';
-import Sidebar from './sidebar';
+import React, { useEffect, useState } from "react";
+import "./DashboardContent.css";
+import { useUser } from "../UserContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "./Sidebar";
 import axios from "axios";
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddLeads = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-      
-        const toggleSidebar = () => {
-          setIsSidebarOpen(!isSidebarOpen);
-        };
-        const { user } = useUser();  // Access the current user
-        const [userName, setUserName] = useState('');
-      
-        useEffect(() => {
-          if (user) {
-            setUserName(`${user.first_name} ${user.last_name}`); // Setting user name based on user context
-          }
-        }, [user]);
-      
-        if (!user) {
-          return <div>Please log in</div>;  // Handle the case if user is not logged in
-        }
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-        const navigate = useNavigate();
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => {
+      console.log("Toggling Sidebar: New State =", !prev);
+      return !prev;
+    });
+  };
+
+  useEffect(() => {
+    console.log("Sidebar open state updated:", isSidebarOpen);
+  }, [isSidebarOpen]);
+
+  const { user } = useUser();
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setUserName(`${user.first_name} ${user.last_name}`);
+    }
+  }, [user]);
+
+  if (!user) {
+    return <div>Please log in</div>;
+  }
+
+  const navigate = useNavigate();
 
   const [leadData, setLeadData] = useState({
     name: "",
@@ -42,7 +51,7 @@ const AddLeads = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Fetch sales employees on component mount
+  // Logic to handle form data
   useEffect(() => {
     const fetchSalesEmployees = async () => {
       try {
@@ -81,9 +90,11 @@ const AddLeads = () => {
           assigned_to: "",
         });
 
+        toast.success("Lead added successfully!");
+
         setTimeout(() => {
           navigate("/view-leads");
-        }, 2000);
+        }, 7000);
       }
     } catch (error) {
       console.error("Error adding lead:", error);
@@ -91,47 +102,119 @@ const AddLeads = () => {
     }
   };
 
-    
   return (
-    <div className="dashboard-container">
-    {/* Hamburger Menu (Visible on smaller screens) */}
-    <div className="hamburger-menu" onClick={toggleSidebar}>
-      <FontAwesomeIcon icon={faBars} />
+    <div className={`dashboard-container ${isSidebarOpen ? "sidebar-open" : ""}`}>
+      {/* Ensure button is rendering */}
+      <div className="hamburger-menu" onClick={toggleSidebar}>
+        <FontAwesomeIcon icon={faBars} />
+      </div>
+
+      {/* Sidebar (Conditionally Rendered) */}
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+
+      <div className="dashboard-content">
+        <div>
+          <h2 className="leads-list-title">Add New Lead Details</h2>
+
+          {/* form container */}
+          <div className="form-container">
+            <h6>Enter all details of the Lead</h6> <br />
+            {error && <p className="error-message">{error}</p>}
+            {success && <p className="success-message">{success}</p>}
+
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter name"
+                  value={leadData.name}
+                  onChange={handleChange}
+                  required
+                  pattern="^[a-zA-Z\s]+$"
+                  title="Name should only contain letters and spaces."
+                />
+              </div>
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter email"
+                  value={leadData.email}
+                  onChange={handleChange}
+                  required
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  title="Please enter a valid email address."
+                />
+              </div>
+              <div>
+                <label htmlFor="phone">Phone</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Enter contact number"
+                  value={leadData.phone}
+                  onChange={handleChange}
+                  required
+                  pattern="^\d{10}$"
+                  title="Phone number should be 10 digits."
+                />
+              </div>
+              <div>
+                <label htmlFor="company">Company</label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  placeholder="Enter company name"
+                  value={leadData.company}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="source">Source</label>
+                <input
+                  type="text"
+                  id="source"
+                  name="source"
+                  placeholder="Source of the lead"
+                  value={leadData.source}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="assigned_to">Assign To</label>
+                <select
+                  id="assigned_to"
+                  name="assigned_to"
+                  value={leadData.assigned_to}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select Sales Employee</option>
+                  {salesEmployees.map((employee) => (
+                    <option key={employee.id} value={employee.id}>
+                      {employee.first_name} {employee.last_name} {/* Concatenate first and last name */}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button type="submit" className="btn btn-danger">Add Lead</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ToastContainer />
     </div>
+  );
+};
 
-    {/* Sidebar (Conditionally Rendered) */}
-    <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
-
-    <div className={`dashboard-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-    <h1 className="dashboard-title">Welcome, {userName}</h1>
-    <div className="form-container">
-      <h2>Add New Lead</h2>
-      {error && <p className="error-message">{error}</p>}
-      {success && <p className="success-message">{success}</p>}
-
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" value={leadData.name} onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" value={leadData.email} onChange={handleChange} required />
-        <input type="tel" name="phone" placeholder="Phone" value={leadData.phone} onChange={handleChange} required />
-        <input type="text" name="company" placeholder="Company" value={leadData.company} onChange={handleChange} required />
-        <input type="text" name="source" placeholder="Source" value={leadData.source} onChange={handleChange} required />
-
-        {/* Assign To Dropdown */}
-        <select name="assigned_to" value={leadData.assigned_to} onChange={handleChange} required>
-          <option value="">Select Sales Employee</option>
-          {salesEmployees.map((employee) => (
-            <option key={employee.id} value={employee.id}>
-            {employee.first_name} {employee.last_name}  {/* Concatenate first and last name */}
-          </option>
-          ))}
-        </select>
-
-        <button type="submit">Add Lead</button>
-      </form>
-    </div>
-    </div>
-  </div>
-  )
-}
-
-export default AddLeads
+export default AddLeads;

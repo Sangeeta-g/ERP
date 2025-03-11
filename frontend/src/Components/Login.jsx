@@ -95,7 +95,7 @@ const Login = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        <FaUser  className="form-control-icon" />
+                       
                     </div>
                     <div className="form-group mb-3 position-relative">
                         <input
@@ -105,7 +105,7 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <FaLock className="form-control-icon" />
+                        
                         {/* Show/Hide Password Icon */}
                         <span 
                             className="password-toggle-icon" 
@@ -122,7 +122,7 @@ const Login = () => {
                     <div className="text-center mt-4">
                         
                         <p>
-                            <a className="font-bold" href="auth-forgot-password.html">Forgot password?</a>.
+                            <a className="font-bold" href="auth-forgot-password.html">Forgot password?</a>
                         </p>
                     </div>
                 </div>

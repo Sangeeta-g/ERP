@@ -65,8 +65,24 @@ router.put("/:id/status", async (req, res) => {
 // View lead details
 router.get('/view-leads', async (req, res) => {
     try {
-        console.log("Fetching all leads..."); // Debugging log
-        const query = "SELECT * FROM leads ORDER BY id DESC;";
+        console.log("Fetching all leads with assigned user details...");
+        
+        const query = `
+            SELECT 
+                leads.id, 
+                leads.name, 
+                leads.email, 
+                leads.phone, 
+                leads.company, 
+                leads.source, 
+                leads.status, 
+                leads.created_at,
+                users.first_name || ' ' || users.last_name AS assigned_to_name
+            FROM leads
+            LEFT JOIN users ON leads.assigned_to = users.id
+            ORDER BY leads.id DESC;
+        `;
+
         const result = await pool.query(query);
         
         if (result.rowCount === 0) {
@@ -84,7 +100,7 @@ router.get('/view-leads', async (req, res) => {
 });
 
 
-export default router;  // Update to use export default
+
 
 
 // Sales employee 
@@ -108,3 +124,5 @@ router.get("/sales-employees", async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   });
+
+  export default router;  // Update to use export default

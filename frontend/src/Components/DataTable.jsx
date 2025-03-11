@@ -71,6 +71,7 @@ const DataTable = () => {
           </div>
         </div>
 
+
         <div className="dataTable-container">
           <table className="table table-striped">
             <thead>
