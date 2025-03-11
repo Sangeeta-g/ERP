@@ -7,9 +7,6 @@ import '../components/Sidebar.css';
 function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();  // Initialize useNavigate hook
 
-
-function Sidebar({ isOpen, onClose }) {
-
   const [isComponentsOpen, setIsComponentsOpen] = useState(false);
   const [isExtraComponentsOpen, setIsExtraComponentsOpen] = useState(false);
   const [isLayoutsOpen, setLayoutsOpen] = useState(false);
@@ -21,7 +18,6 @@ function Sidebar({ isOpen, onClose }) {
   const toggleLayouts = () => setLayoutsOpen(!isLayoutsOpen);
   const toggleFormElements = () => setFormElementsOpen(!isFormElementsOpen);
   const toggleFormEditor = () => setFormEditorOpen(!isFormEditorOpen);
-
 
   // Handle navigation to DataTable
   const goToDataTable = () => {
@@ -50,25 +46,6 @@ function Sidebar({ isOpen, onClose }) {
           </div>
         </div>
 
-  return (
-    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="sidebar-wrapper">
-         <div className="sidebar-header">
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="logo">
-                <a href="index.html">
-                  <img src="https://cdn-icons-png.flaticon.com/512/8214/8214212.png" alt="Logo" className="sidebar-logo-icon" style={{ width: '35px', height: '35px', marginRight: '10px' }}/> {/* Replaced FaUserCircle with img tag */}
-                   Mazer
-                </a>
-              </div>
-              {isOpen && (
-                  <FaTimes className="sidebar-close-icon" onClick={onClose} />
-              )}
-
-            </div>
-          </div>
-
-
         <li className="sidebar-title">Menu</li>
 
         <ul className="sidebar-menu">
@@ -85,7 +62,6 @@ function Sidebar({ isOpen, onClose }) {
               DataTable
             </button>
           </li>
-
 
           <li className="sidebar-item">
             <button className="sidebar-button dropdown-button" onClick={toggleComponents}>
