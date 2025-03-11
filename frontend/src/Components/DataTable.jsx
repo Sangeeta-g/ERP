@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import './DashboardContent.css';
+import './DataTable.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars } from '@fortawesome/free-solid-svg-icons';
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
+import "./DataTable.css"
 
 const DataTable = () => {
   const [searchTerm, setSearchTerm] = useState('');

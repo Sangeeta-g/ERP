@@ -17,6 +17,9 @@ import EmployeePortal from './Components/EmployeePortal'; // Create this compone
 import TableComponent from "./Components/DataTable";
 // import UserForm from './Components/UserForm';
 
+import Form from "./Components/Form";
+import DataTable from "./Components/DataTable";
+import UserForm from './Components/UserForm';
 
 const App = () => {
     return (
@@ -32,7 +35,9 @@ const App = () => {
                 {/* <Route path="/sales-manager" element={<SalesManager />}/> */}
                 {/* <Route path="/view-leads" element={<ViewLeads />}/> */}
                 {/* <Route path="/add-leads" element={<AddLeads/>}/> */}
-               
+                <Route path ="/dashboard-content" element={<DashboardContent /> }/> {/* Corrected path & consistent naming */}
+                <Route path ="/datatable" element={<DataTable />}/>
+                <Route path ="/form" element={<Form />} />
 
                 <Route path ="/datatable" element={<TableComponent />}/>
 
