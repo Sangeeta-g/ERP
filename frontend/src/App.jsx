@@ -1,6 +1,7 @@
 import React from "react";
 import UserForm from "./Components/UserForm";
 import DashboardContent from "./Components/DashboardContent"; // Corrected path
+import FormMultiple from "./Components/Form Multiple";
 
 // App.js
 
@@ -35,6 +36,8 @@ const App = () => {
                 <Route path="/view-leads" element={<ViewLeads />}/>
                 <Route path="/add-leads" element={<AddLeads/>}/>
                 <Route path ="/dashboard-content" element={<DashboardContent /> }/> {/* Corrected path & consistent naming */}
+
+                <Route path="/form-multiple" element={<FormMultiple />} />
                 <Route path ="/datatable" element={<DataTable />}/>
                 <Route path ="/form" element={<Form />} />
 
