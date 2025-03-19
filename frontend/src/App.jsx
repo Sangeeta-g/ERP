@@ -20,6 +20,14 @@ import TableComponent from "./Components/DataTable";
 
 import Form from "./Components/Form";
 import DataTable from "./Components/DataTable";
+import EditLead from "./Components/EditLead";
+import EmployeeSales from "./Components/EmployeeSales";
+import LeadsList from "./Components/LeadsList";
+import SalesEmployee from "./Components/SalesEmployee";
+import ManageEmployee from "./Components/ManageEmployee";
+import AddEmployee from "./Components/AddEmployee";
+import EditEmployee from "./Components/EditEmployee";
+import EmployeeAttendance from "./Components/EmployeeAttendance";
 
 
 const App = () => {
@@ -29,19 +37,33 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/admin-portal" element={<DashboardContent />} /> {/* Changed to AdminPortal Component*/}
-                <Route path="/hr-portal" element={<HRPortal />} />
+               
                 <Route path="/employee-portal" element={<EmployeePortal />} />
                 <Route path="/user-form" element={<UserForm />} /> {/* Corrected path & consistent naming */}
                 <Route path ="/dashboard-content" element={<DashboardContent /> }/> 
+
+                {/* CRM */}
                 <Route path="/sales-manager" element={<SalesManager />}/>
+                <Route path="/employee-sales" element={<EmployeeSales />} />
                 <Route path="/view-leads" element={<ViewLeads />}/>
+                <Route path="/leads-list" element={<LeadsList />}/>
                 <Route path="/add-leads" element={<AddLeads/>}/>
-                <Route path ="/dashboard-content" element={<DashboardContent /> }/> {/* Corrected path & consistent naming */}
+                <Route path="/sales-employee-info" element={<SalesEmployee/>}/>
+                <Route path="/edit-lead/:id" element={<EditLead />} />
 
-                <Route path="/form-multiple" element={<FormMultiple />} />
+                {/* HRM */}
+                <Route path="/hr-portal" element={<HRPortal />} />
+                <Route path="/manage-employees" element={<ManageEmployee />} />
+                <Route path='/add-emp' element={<AddEmployee />} />
+                <Route path="/edit-employee/:id" element={<EditEmployee/>}/>
+
+
+                {/* Employee and attendance */}
+                <Route path="/employee-portal" element={<EmployeePortal />} />
+                <Route path="/emp-attendance" element={<EmployeeAttendance />} />
+
+
                 <Route path ="/datatable" element={<DataTable />}/>
-                <Route path ="/form" element={<Form />} />
-
                 <Route path ="/datatable" element={<TableComponent />}/>
 
             </Routes>

@@ -27,8 +27,9 @@ const Login = () => {
             });
 
             if (response.data.success) {
-                const { first_name, last_name, role } = response.data;
-                loginUser({ first_name, last_name, role }); // Store user data in context
+                const { first_name, last_name, role, id } = response.data;
+                const position = response.data.position;
+                loginUser({ first_name, last_name, role, position, id }); // Store user data in context
                 console.log('Login successful! Role:', response.data.role);
                 // Show success alert
                 Swal.fire({
@@ -37,24 +38,27 @@ const Login = () => {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    // Redirect based on user role
-                    switch (response.data.role) {
-                        case 'admin':
-                            navigate('/admin-portal'); // Redirect to admin portal
-                            break;
-                        case 'HR':
-                            navigate('/hr-portal'); // Redirect to HR portal
-                            break;
-                        case 'employee':
-                            navigate('/employee-portal'); // Redirect to employee portal
-                            break;
-                        case 'sales_manager':
-                            navigate('/sales-manager');
-                            break;
-                        default:
-                            navigate('/'); // Default redirect
+                    if (response.data.role === 'employee' && position === 'Inside Sales') {
+                        navigate('/employee-sales'); // Redirect Inside Sales employee
+                    } else {
+                        switch (response.data.role) {
+                            case 'admin':
+                                navigate('/admin-portal');
+                                break;
+                            case 'HR':
+                                navigate('/hr-portal');
+                                break;
+                            case 'employee':
+                                navigate('/employee-portal');
+                                break;
+                            case 'sales_manager':
+                                navigate('/sales-manager');
+                                break;
+                            default:
+                                navigate('/'); // Default redirect
+                        }
                     }
-                });
+                });                 
             }
         } catch (err) {
             setError('Invalid credentials. Please try again.');

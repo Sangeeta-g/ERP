@@ -7,13 +7,12 @@ import Sidebar from './sidebar';
 
 
 function SalesManager() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  
 
   const { user } = useUser();  // Access the current user
   const [userName, setUserName] = useState('');
@@ -31,21 +30,25 @@ function SalesManager() {
   }
 
   return (
-    <div className="dashboard-container">
-      {/* Hamburger Menu (Visible on smaller screens) */}
-      <div className="hamburger-menu" onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={faBars} />
-      </div>
+    <div
+    className={`dashboard-container ${isSidebarOpen ? "sidebar-open" : ""}`}
+  >
+    {/* Ensure button is rendering */}
+    <div className="hamburger-menu" onClick={toggleSidebar}>
+      <FontAwesomeIcon icon={faBars} />
+    </div>
 
-      {/* Sidebar (Conditionally Rendered) */}
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+    {/* Sidebar (Conditionally Rendered) */}
+    <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <div className={`dashboard-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-      <h1 className="dashboard-title">Welcome, {userName}</h1>
-
-      
+    <div className="dashboard-content">
+      <div>
+        <h2 className="leads-list-title">Welcome, {userName}</h2>
+       
+       
       </div>
     </div>
+  </div>
   );
 }
 
